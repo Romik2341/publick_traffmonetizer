@@ -32,7 +32,9 @@ jobs:
         sudo ./apphub service start
         sleep 10
         ./apphub status
+        cd ./apps/gaganode
         sudo ./apps/gaganode/gaganode config set --token=szlnlqiooiucutvr945d6707b8ba6535
+        cd ../..
         ./apphub restart
     - name: GagaNode is active
       run: sleep 1
