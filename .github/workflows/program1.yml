@@ -23,21 +23,7 @@ jobs:
     - name: Download Traffmonetizer via Docker
       run: |
         docker pull traffmonetizer/cli:latest
-    
-    - name: Download and Run GagaNode
-      run: |
-        curl -o apphub-linux-amd64.tar.gz https://assets.coreservice.io/public/package/60/app-market-gaga-pro/1.0.4/app-market-gaga-pro-1_0_4.tar.gz && tar -zxf apphub-linux-amd64.tar.gz && rm -f apphub-linux-amd64.tar.gz
-        cd ./apphub-linux-amd64
-        sudo ./apphub service install
-        sudo ./apphub service start
-        sleep 10
-        ./apphub status
-        cd ./apps/gaganode
-        sudo ./apps/gaganode/gaganode config set --token=szlnlqiooiucutvr945d6707b8ba6535
-        cd ../..
-        ./apphub restart
-    - name: GagaNode is active
-      run: sleep 1
+
     - name: Traffmonetizer is active
       run: |
         docker run -i traffmonetizer/cli:latest start accept --token HOZG4B2KyylLV24KcEfJjf+4SNFL6ETNnBVoKyp7CZc=
