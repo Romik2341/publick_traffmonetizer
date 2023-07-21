@@ -1,0 +1,19 @@
+name: Run Multiple Workflows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run Workflows
+      run: |
+        for i in {1..18}
+        do
+          curl -X POST -H "Authorization: token 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" -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/Romik2341/publick_traffmonetizer/actions/workflows/5620588778/dispatches" -d '{"ref":"main"}'
+          sleep 2  # Затримка між запусками воркфловів, якщо потрібно
+        done
