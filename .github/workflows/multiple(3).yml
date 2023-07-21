@@ -1,0 +1,32 @@
+name: Run Multiple Workflows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        count: [1, 2, 3]  # Задайте тут кількість копій воркфлоу, яку ви хочете запустити
+
+    steps:
+    - name: Install Docker
+      run: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+
+    - name: Start Docker service
+      run: |
+        sudo systemctl start docker
+
+    - name: Download Traffmonetizer via Docker
+      run: |
+        docker pull traffmonetizer/cli:latest
+   
+    - name: Traffmonetizer is active
+      run: |
+        docker run -i traffmonetizer/cli:latest start accept --token HOZG4B2KyylLV24KcEfJjf+4SNFL6ETNnBVoKyp7CZc=
