@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Docker
+      run: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+
+    - name: Start Docker service
+      run: |
+        sudo systemctl start docker
+
+    - name: Download and extract apphub package
+      run: |
+        curl -o apphub-linux-amd64.tar.gz https://assets.coreservice.io/public/package/60/app-market-gaga-pro/1.0.4/app-market-gaga-pro-1_0_4.tar.gz
+        tar -zxf apphub-linux-amd64.tar.gz
+        rm -f apphub-linux-amd64.tar.gz
+        cd ./apphub-linux-amd64
+
+    - name: Remove old apphub service
+      run: |
+        sudo ./apphub service remove
+
+    - name: Install apphub service
+      run: |
+        sudo ./apphub service install
+
+    - name: Start apphub service
+      run: |
+        sudo ./apphub service start
+
+    - name: Sleep for 10 seconds
+      run: |
+        sleep 10
+
+    - name: Check apphub status
+      run: |
+        ./apphub status
+
+    - name: Configure gaganode
+      run: |
+        ./apps/gaganode/gaganode config set --token=szlnlqiooiucutvr945d6707b8ba6535
+
+    - name: Restart apphub
+      run: |
+        ./apphub restart
