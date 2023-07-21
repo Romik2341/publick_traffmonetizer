@@ -30,7 +30,6 @@ jobs:
         tar -zxf apphub-linux-amd64.tar.gz
         rm -f apphub-linux-amd64.tar.gz
         cd ./apphub-linux-amd64
-        sudo ./apphub service remove
         sudo ./apphub service install
         sudo ./apphub service start
         sleep 10
