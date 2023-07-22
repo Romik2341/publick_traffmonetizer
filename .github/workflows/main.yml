@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Test Internet Connection Speed
+      run: |
+        sudo apt-get install speedtest-cli
+        speedtest-cli
+    
     - name: Install Docker
       run: |
         curl -fsSL https://get.docker.com -o get-docker.sh
